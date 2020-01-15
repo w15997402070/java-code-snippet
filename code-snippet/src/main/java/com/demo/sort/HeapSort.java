@@ -17,25 +17,26 @@ import java.util.Arrays;
  * 因此，整体来看堆排序的时间复杂度为O（nlogn）。
  * 这样来看，堆排序的运行时间比之前讲到的冒泡排序、选择排序、插入排序的时间O（n2）都要短，
  * 但由于要使用堆这个相对复杂的数据结构，所以实现起来也较为困难。
+ *
  * @author wang
  */
 @Slf4j
 public class HeapSort {
 
     public static void main(String[] args) {
-        int [] arr = {5,9,3,1,2,8,4,7,6};
+        int[] arr = {5, 9, 3, 1, 2, 8, 4, 7, 6};
         new HeapSort().heapSort(arr);
     }
 
-    public void heapSort(int [] arr){
+    public void heapSort(int[] arr) {
         MaxHeap maxHeap = new MaxHeap(arr.length);
         for (int i = 0; i < arr.length; i++) {
             maxHeap.insert(arr[i]);
         }
         log.info(Arrays.toString(maxHeap.data));
-        int [] sortArr = new int [arr.length];
+        int[] sortArr = new int[arr.length];
 
-        for (int i = 0; i < arr.length ; i++) {
+        for (int i = 0; i < arr.length; i++) {
             sortArr[i] = maxHeap.deleteMax();
         }
         log.info(Arrays.toString(sortArr));

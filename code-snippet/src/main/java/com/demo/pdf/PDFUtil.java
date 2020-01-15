@@ -14,7 +14,7 @@ import java.io.IOException;
 @Slf4j
 public class PDFUtil {
 
-    public void readPDF(){
+    public void readPDF() {
         String path = "D:\\tmp\\how-tomcat-works.pdf";
         FileInputStream inputStream = null;
         try {
@@ -26,13 +26,13 @@ public class PDFUtil {
             //3.创建MetaData对象
             Metadata metadata = new Metadata();
             //4. 调用解析器对象的parser()方法,并传入参数
-            parser.parse(inputStream, handler, metadata,new ParseContext());
+            parser.parse(inputStream, handler, metadata, new ParseContext());
             //5. 调用handler的toString()方法提取正文文本
             log.info(handler.toString());
         } catch (SAXException | TikaException | IOException e) {
             e.printStackTrace();
         } finally {
-            if (inputStream != null){
+            if (inputStream != null) {
                 try {
                     inputStream.close();
                 } catch (IOException e) {
@@ -42,7 +42,7 @@ public class PDFUtil {
         }
     }
 
-    public static void main (String [] args){
+    public static void main(String[] args) {
         new PDFUtil().readPDF();
     }
 }

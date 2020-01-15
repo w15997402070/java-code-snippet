@@ -40,30 +40,31 @@ public class MaxHeap {
      * 调整树结构,将插入的元素和父元素比较
      * @param size 数据量
      */
-    public void shiftUp(int size){
+    public void shiftUp(int size) {
         //父节点的索引
-        int p = size/2;
+        int p = size / 2;
         //比较当前元素和父元素
-        while (size > 1 && data[size] < data[p]){
+        while (size > 1 && data[size] < data[p]) {
             int tmp = data[p];
             data[p] = data[size];
             data[size] = tmp;
             size = p;
-            p = p/2;
+            p = p / 2;
         }
     }
 
     /**
      * 递归实现
      * 调整树结构,将插入的元素和父元素比较
+     *
      * @param size
      */
-    public void shiftUpByRecursion(int size){
-        int p = size/2;
-        if (p == 0){
+    public void shiftUpByRecursion(int size) {
+        int p = size / 2;
+        if (p == 0) {
             return;
         }
-        if (data[size] > data[p]){
+        if (data[size] > data[p]) {
             int tmp = data[p];
             data[p] = data[size];
             data[size] = tmp;
@@ -71,10 +72,10 @@ public class MaxHeap {
         }
     }
 
-    public int deleteMax(){
-        if(size == 0){
+    public int deleteMax() {
+        if (size == 0) {
             System.out.println("堆已经是空的了！");
-            return -1 ;
+            return -1;
         }
         int d = data[1];
         //将最后的元素放到第一个位置上
@@ -86,40 +87,43 @@ public class MaxHeap {
 
     /**
      * 元素删除之后调整堆结构
+     *
      * @param i
      */
-    public void shiftDown(int i){
+    public void shiftDown(int i) {
         //数组不能越界,所以节点的子节点的索引应该 2*i < size
-        while (2*i <= size){
-           int j = 2*i;
-           //比较两个孩子节点,指向孩子节点中较大的那个
-           if (j+1 <= size && data[2*i] > data[j+1]){
-               j = 2*i+1;
-           }
-           if (data[i] < data[j]){
-               break;
-           }
-           //交换两个位置的数据
-           int tmp = data[i];
-           data[i] = data[j];
-           data[j] = tmp;
-           i = j;
+        while (2 * i <= size) {
+            int j = 2 * i;
+            //比较两个孩子节点,指向孩子节点中较大的那个
+            if (j + 1 <= size && data[2 * i] > data[j + 1]) {
+                j = 2 * i + 1;
+            }
+            if (data[i] < data[j]) {
+                break;
+            }
+            //交换两个位置的数据
+            int tmp = data[i];
+            data[i] = data[j];
+            data[j] = tmp;
+            i = j;
         }
     }
+
     /**
      * 递归实现
      * 元素删除之后调整堆结构
+     *
      * @param i
      */
-    public void shiftDownByRecursion(int i){
-        if (2*i > size){
+    public void shiftDownByRecursion(int i) {
+        if (2 * i > size) {
             return;
         }
-        int j = 2*i;
-        if ( j+1 <= size && data[2*i] < data[j+1]){
-            j = 2*i+1;
+        int j = 2 * i;
+        if (j + 1 <= size && data[2 * i] < data[j + 1]) {
+            j = 2 * i + 1;
         }
-        if (data[i] > data[j]){
+        if (data[i] > data[j]) {
             return;
         }
         int tmp = data[i];

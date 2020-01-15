@@ -14,7 +14,7 @@ import java.util.List;
 @Slf4j
 public class XmlUtil {
 
-    public void parseXml(){
+    public void parseXml() {
         String fileName = "D:\\data\\javaTest\\github\\java-code-snippet\\code-snippet\\pom.xml";
         SAXBuilder saxBuilder = new SAXBuilder();
         File file = new File(fileName);
@@ -26,11 +26,11 @@ public class XmlUtil {
             for (Element child : children) {
                 log.info(child.getName());
             }
-            Element node = rootNode.getChild("dependencies",namespace);
-            List<Element> dependencyList = node.getChildren("dependency",namespace);
+            Element node = rootNode.getChild("dependencies", namespace);
+            List<Element> dependencyList = node.getChildren("dependency", namespace);
             for (int i1 = 0; i1 < dependencyList.size(); i1++) {
                 Element element = dependencyList.get(i1);
-                String artifactId = element.getChildText("artifactId",namespace);
+                String artifactId = element.getChildText("artifactId", namespace);
                 log.info(artifactId);
             }
 
@@ -41,7 +41,7 @@ public class XmlUtil {
         }
     }
 
-    public void parseXml2(){
+    public void parseXml2() {
         String fileName = "D:\\data\\javaTest\\github\\java-code-snippet\\code-snippet\\file\\xml\\test.xml";
         SAXBuilder saxBuilder = new SAXBuilder();
         File file = new File(fileName);
