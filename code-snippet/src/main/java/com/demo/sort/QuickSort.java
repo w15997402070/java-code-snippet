@@ -79,6 +79,6 @@ public class QuickSort {
         int t = arr[i];
         arr[i] = arr[j];
         arr[j] = t;
-        Collections.sort();
+//        Collections.sort();
     }
 }

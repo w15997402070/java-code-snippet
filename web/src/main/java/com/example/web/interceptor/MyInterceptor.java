@@ -20,7 +20,7 @@ public class MyInterceptor {
     /**
      * 这儿填写ExecTime.java的全路径名
      */
-    @Pointcut("@annotation(com.example.wang.service.ExecTime)")
+    @Pointcut("@annotation(com.example.web.service.ExecTime)")
     public void annotationPointCut() {
     }
 

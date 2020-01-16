@@ -1,10 +1,11 @@
 package com.demo.pattern.proxy.jdkProxy;
 
+import com.demo.pattern.proxy.staticProxy.Car;
+import com.demo.pattern.proxy.staticProxy.Moveable;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 
-import com.example.wang.other.pattern.proxy.staticProxy.Car;
-import com.example.wang.other.pattern.proxy.staticProxy.Moveable;
 
 /**
  * jdk��̬���������
