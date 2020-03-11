@@ -1,0 +1,2 @@
+生成命令  
+protoc -I=D:\data\javaTest\github\java-code-snippet\code-snippet\src\main\java\com\demo\netty\protobuf\domain   --java_out=D:\data\javaTest\github\java-code-snippet\code-snippet\src\main\java D:\data\javaTest\github\java-code-snippet\code-snippet\src\main\java\com\demo\netty\protobuf\protobuf\addressbook.proto  --proto_path=D:\data\javaTest\github\java-code-snippet\code-snippet\src\main\java\com\demo\netty\protobuf\protobuf

@@ -1,7 +1,6 @@
 package com.demo.java8.date;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -26,7 +25,6 @@ public class DateUtil {
      * 获取今天的日期
      * 年/月/日
      */
-    @Test
     public  void getToday(){
         LocalDate now = LocalDate.now();
         log.info("today : "+now);
@@ -70,7 +68,7 @@ public class DateUtil {
     /**
      * 时间计算
      */
-    @Test
+
     public void caculateDateTime(){
         LocalDateTime localDateTime = LocalDateTime.now();
         log.info("当前日期和时间 : "+localDateTime);
@@ -106,7 +104,7 @@ public class DateUtil {
      * 时钟类Clock
      * 获取当前的时间戳
      */
-    @Test
+
     public void clockTest(){
         Clock clock = Clock.systemUTC();
         log.info("当前时间戳 : "+ clock.millis());
@@ -126,7 +124,7 @@ public class DateUtil {
     /**
      * 判断日期是否相等
      */
-    @Test
+
     public  void dateCompare(){
         LocalDate now = LocalDate.now();
         LocalDate paramDate = LocalDate.of(2020, 1, 16);
@@ -138,7 +136,7 @@ public class DateUtil {
         }
     }
 
-    @Test
+
     public void birthdayCompare(){
         LocalDate now = LocalDate.now();
         LocalDate paramDate = LocalDate.of(2020, 1, 17);
@@ -155,7 +153,7 @@ public class DateUtil {
     /**
      * 日期格式化
      */
-    @Test
+
     public void formatter(){
         //日期解析
         String date="20200117";

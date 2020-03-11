@@ -1,0 +1,48 @@
+// [START declaration]
+syntax = "proto3";
+package tutorial;
+
+import "google/protobuf/timestamp.proto";
+// [END declaration]
+
+// [START java_declaration]
+option java_package = "com.demo.netty.protobuf.domain";
+option java_outer_classname = "MyDataInfo";
+// [END java_declaration]
+
+// [START csharp_declaration]
+//option csharp_namespace = "Google.Protobuf.Examples.AddressBook";
+// [END csharp_declaration]
+
+// [START messages]
+message Mymessage {
+
+    enum DataType{
+        PersonType = 0;
+        DogType = 1;
+        CatType = 2;
+    }
+     DataType data_type = 1;
+    oneof dataBody{
+        Person person = 2;
+        Dog dog = 3;
+        Cat cat = 4;
+    }
+}
+message Person{
+     string name = 1;
+     int32 age = 2;
+     string address = 3;
+}
+
+message Dog{
+    string name = 1;
+    int32 age = 2;
+}
+
+message Cat{
+    string name = 1;
+    string city = 2;
+}
+
+// [END messages]
