@@ -6,6 +6,7 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.util.Set;
 
 /**
  * 服务端
@@ -27,6 +28,18 @@ public class ChannelTest {
             SocketChannel acceptChannel = serverSocketChannel.accept();
             //4.客户端连接远程主机及端口
 
+            while (true){
+                try {
+                    selector.select();
+
+                    Set<SelectionKey> selectionKeys = selector.selectedKeys();
+                    selectionKeys.forEach(selectionKey -> {
+
+                    });
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
