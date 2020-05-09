@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
@@ -28,6 +30,11 @@ public class Shop {
         this.name = name;
     }
 
+    /**
+     * 获取价格
+     * @param product
+     * @return
+     */
     public double getPrice(String product){
         return calculatePrice(product);
     }
@@ -38,6 +45,9 @@ public class Shop {
         Discount.Code code = Discount.Code.values()[random.nextInt(Discount.Code.values().length)];
         return String.format("%s:%.2f:%s", name, price, code);
     }
+    /**
+     * 异步获取价格的方法
+     */
 //    public Future<Double>getPriceAsync(String product){
 //        CompletableFuture<Double> futurePrice = new CompletableFuture<>();
 //        new Thread(() -> {
@@ -128,15 +138,20 @@ public class Shop {
     static List<Shop> shops = new ArrayList<>();
     public static void main(String [] args) {
 
+        int i = Runtime.getRuntime().availableProcessors();
+        System.out.println(i);
         shops.add(new Shop("BestShop"));
         shops.add(new Shop("LetsSaveBig"));
         shops.add(new Shop("MyFavoriteShop"));
         shops.add(new Shop("BuyItAll"));
 
+//
+//        ExecutorService executorService = Executors.newFixedThreadPool(10);
         long startTime = System.nanoTime();
-        System.out.println(findPriceDiscountWithCompletableFuture("myPhone275"));
+        System.out.println(findPriceWithDiscount("myPhone275"));
         long  retrievalTime = (System.nanoTime() -startTime)/1_000_000;
         System.out.println("Done in : "+retrievalTime+" msecs");
+//        executorService.shutdown();
     }
 
     /**
@@ -144,26 +159,26 @@ public class Shop {
      * @param product
      * @return
      */
-//    public static List<String> findPrices(String product){
-//        //异步调用
-//        return shops.parallelStream()
+    public static List<String> findPrices(String product){
+        //异步调用
+        return shops.parallelStream()
+                .map(shop -> String.format("%s price is %.2f",shop.getName(),shop.getPrice(product)))
+                .collect(Collectors.toList());
+        //同步调用
+//        return shops.stream()
 //                .map(shop -> String.format("%s price is %.2f",shop.getName(),shop.getPrice(product)))
 //                .collect(Collectors.toList());
-//        //同步调用
-////        return shops.stream()
-////                .map(shop -> String.format("%s price is %.2f",shop.getName(),shop.getPrice(product)))
-////                .collect(Collectors.toList());
-//    }
+    }
 
     /**
      * CompletableFuture 异步处理
      * @param product
      * @return
      */
-    public static List<String> findPrices(String product){
+    public static List<String> findPricesWithCompletableFuture(String product,ExecutorService executorService){
         //异步调用
         List<CompletableFuture<String>> futureList = shops.stream()
-                .map((shop) -> CompletableFuture.supplyAsync(() -> shop.getName()+"price is "+shop.getPrice(product)))
+                .map((shop) -> CompletableFuture.supplyAsync(() -> shop.getName()+"price is "+shop.getPrice(product),executorService))
                 .collect(Collectors.toList());
         return futureList.stream()
                 .map(CompletableFuture :: join)
@@ -180,21 +195,21 @@ public class Shop {
      */
     public static List<String> findPriceWithDiscount(String product){
         return shops.stream()
-                .map(shop -> shop.getPriceWithDiscount(product))
-                .map(Quote :: parse)
-                .map(Discount :: applyDiscount)
+                .map(shop -> shop.getPriceWithDiscount(product))//取的每个shop对象中商品的原始价格
+                .map(Quote :: parse)//对上一步返回的字符串进行转换
+                .map(Discount :: applyDiscount)//计算折扣后的价格
                 .collect(Collectors.toList());
     }
 
     public static List<String> findPriceDiscountWithCompletableFuture(String product) {
         List<CompletableFuture<String>> futureList =  shops.stream()
-                .map(shop -> CompletableFuture.supplyAsync(() ->  shop.getPriceWithDiscount(product)))
-                .map(future -> future.thenApply(Quote :: parse))
+                .map(shop -> CompletableFuture.supplyAsync(() ->  shop.getPriceWithDiscount(product)))//异步方式获取原始价格
+                .map(future -> future.thenApply(Quote :: parse))//对其返回值进行转换
                 .map(future -> future.thenCompose(quote ->
-                                                      CompletableFuture.supplyAsync(() -> Discount.applyDiscount(quote))))
+                                                      CompletableFuture.supplyAsync(() -> Discount.applyDiscount(quote))))//使用另一个异步任务构造期望的Future,申请折扣
                 .collect(Collectors.toList());
         return futureList.stream()
-                .map(CompletableFuture :: join)
+                .map(CompletableFuture :: join)//等待流中的所有的future执行完毕,并提取各自的返回值
                 .collect(Collectors.toList());
     }
 }

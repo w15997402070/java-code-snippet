@@ -7,12 +7,13 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
 
 public class TestClient {
 
     public static void main(String[] args) {
         NioEventLoopGroup workerGroup = new NioEventLoopGroup();
-
         try {
             Bootstrap bootstrap = new Bootstrap();
             bootstrap.group(workerGroup)
@@ -21,6 +22,8 @@ public class TestClient {
                     .handler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
+                            ch.pipeline().addLast(new StringEncoder());
+                            ch.pipeline().addLast(new StringDecoder());
                             ch.pipeline().addLast("TimeHandler",new TimeClientHandler());
                         }
                     });

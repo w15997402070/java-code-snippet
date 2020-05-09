@@ -25,4 +25,22 @@ public class ByteBufTest {
     public static void test1(){
         ByteBuf byteBuf = Unpooled.copiedBuffer("Hello world", StandardCharsets.UTF_8);
     }
+
+    public static void read(){
+        //Unpooled非池化的
+        ByteBuf byteBuf = Unpooled.buffer(10);
+
+        //从 readerIndex 开始获取boolean 值,readerIndex 增加1
+        boolean b = byteBuf.readBoolean();
+        //从 readerIndex开始获取字节值, readerIndex 增加1
+        byte b1 = byteBuf.readByte();
+        //从 readerIndex开始获取无符号字节值, readerIndex 增加1
+        short s = byteBuf.readUnsignedByte();
+        //从 readerIndex开始获取短整型值, readerIndex 增加2
+        short s2 = byteBuf.readShort();
+        //从 readerIndex开始获取无符号短整型值, readerIndex 增加2
+        int i = byteBuf.readUnsignedShort();
+
+    }
+
 }
