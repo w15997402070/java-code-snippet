@@ -25,10 +25,10 @@ public class TimeHandler implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         Long startTime = System.currentTimeMillis();
-        System.out.println("������ʼ��ʻ...");
+        System.out.println("代理开始");
         method.invoke(Target);
         Long endTime = System.currentTimeMillis();
-        System.out.println("����������ʻ...������ʻʱ��: " + (endTime - startTime) + "����");
+        System.out.println("代理结束 , 执行时间 : " + (endTime - startTime) + " 毫秒");
         return null;
     }
 
