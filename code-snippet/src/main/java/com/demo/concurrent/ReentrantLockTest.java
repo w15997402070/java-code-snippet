@@ -9,6 +9,7 @@ public class ReentrantLockTest {
    static ReentrantLock lock = new ReentrantLock();
     public static void main(String[] args) {
 
+        Class<String> stringClass = String.class;
         for (int i = 0; i < 10; i++) {
             final int j = i;
             new Thread(() -> {
