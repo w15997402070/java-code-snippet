@@ -1,4 +1,4 @@
-package com.demo.executor;
+package com.demo.executor.rejecthandler;
 
 import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
