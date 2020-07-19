@@ -1,5 +1,8 @@
 package com.demo.executor.rejecthandler;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+
 /**
  * Created on 2020/7/13
  *
@@ -21,5 +24,7 @@ public class TestMain {
         Task rejected_task = new Task("Rejected task");
         server.executeTask(rejected_task);
         System.out.println("Main: End!");
+
+        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
     }
 }

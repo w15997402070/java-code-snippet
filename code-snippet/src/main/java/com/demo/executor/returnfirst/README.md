@@ -122,3 +122,7 @@ public class TestMain {
 `ThreadPoolExecutor`提供了另一个版本的`invokeAny()`方法。
 
 * `invokeAny(Collection<? extends Callable> tasks, longtimeout, TimeUnit unit)`：该方法执行全部任务并返回第一个正常运行结束且未抛出异常和未超过设定时间的任务执行结果。TimeUnit类对象是一个枚举类，它包括DAYS、HOURS、MICROSECONDS、MILLISECONDS、MINUTES、NANOSECONDS、和SECONDS。
+
+## 运行多任务并返回所有任务的结果
+
+`ThreadPoolExecutor`提供`List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks)`方法返回全部任务的执行结果,返回集合的结果的顺序对应参数集合的顺序
